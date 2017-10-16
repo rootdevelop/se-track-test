@@ -1,0 +1,5 @@
+exclude:
+- /src/main/resources/.*
+component_depth: 1
+languages:
+- java
