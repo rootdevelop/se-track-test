@@ -1,0 +1,60 @@
+{{>header}}
+
+<div class="container-fluid">
+    <br><br><br><br><br>
+
+    {{>widgets}}
+
+
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        Movie Overview
+                    </h2>
+
+                </div>
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                            <thead>
+                            <tr>
+                                <th width="70%">Movie name</th>
+                                <th width="10%">Watched</th>
+                                <th width="20%">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#movies}}
+                            <tr {{#watched}} style="background-color: #4CAF50; color: white;"{{/watched}}>
+                                <td>{{name}}</td>
+                                <td>
+                                    {{#watched}}
+                                    Yeps
+                                    {{/watched}}
+                                    {{^watched}}
+                                    Nope
+                                    {{/watched}}
+                                </td>
+                                <td style="text-align: right">
+                                    {{#watched}}
+                                        <a class="btn btn-default" href="/switch/{{id}}">Mark as unwatched</a>
+                                    {{/watched}}
+                                    {{^watched}}
+                                        <a class="btn btn-default" href="/switch/{{id}}">Mark as watched</a>
+                                    {{/watched}}
+                                    <a class="btn btn-danger" href="/delete/{{id}}">Delete</a>
+                                </td>
+                            </tr>
+                            {{/movies}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{>footer}}

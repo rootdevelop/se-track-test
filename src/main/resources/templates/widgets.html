@@ -1,0 +1,52 @@
+
+<div class="row clearfix">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-pink hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">playlist_add_check</i>
+            </div>
+            <div class="content">
+                <div class="text">MOVIES COUNT</div>
+                <div class="number count-to" data-from="{{movies_count}}" data-to="{{movies_count}}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-cyan hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">help</i>
+            </div>
+            <div class="content">
+                <div class="text">MOVIES WATCHED</div>
+                <div class="number count-to" data-from="{{movies_watched}}" data-to="{{movies_watched}}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Add new movie
+                </h2>
+            </div>
+            <div class="body">
+                <form action="/addMovie" method="POST">
+                    <div class="row clearfix">
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-6">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" class="form-control" name="name" placeholder="Movie title" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                            <button type="submit" class="btn btn-primary btn-lg m-l-15 waves-effect">ADD</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
