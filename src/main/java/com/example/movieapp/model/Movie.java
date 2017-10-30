@@ -8,6 +8,12 @@ import javax.persistence.Id;
 @Entity
 public class Movie {
 
+    protected Movie() {}
+
+    public Movie(String name) {
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

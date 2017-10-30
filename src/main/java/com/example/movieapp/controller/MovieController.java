@@ -1,11 +1,15 @@
 package com.example.movieapp.controller;
 
+import com.example.movieapp.manager.MovieManager;
 import com.example.movieapp.model.Movie;
 import com.example.movieapp.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Map;
@@ -16,72 +20,74 @@ import java.util.Map;
 @Controller
 public class MovieController {
 
-    /**
-     * Movie Repository containing all movies
-     */
-    @Autowired
-    MovieRepository movieRepository;
+	/**
+	 * Movie Manager responsible for managing all movie logic
+	 */
+	final MovieManager movieManager;
 
-    /**
-     * Show all movies
-     * @param model
-     * @return
-     */
-    @GetMapping("/")
-    public String showMovies(Model model) {
+	@Autowired
+	public MovieController(MovieManager movieManager) {
+		this.movieManager = movieManager;
+	}
 
-        model.addAttribute("movies",movieRepository.findAll());
-        model.addAttribute("movies_count",movieRepository.count());
-        model.addAttribute("movies_watched",movieRepository.countByWatchedEquals(true));
-        return "all-movies";
-    }
+	/**
+	 * Show all movies
+	 *
+	 * @param model
+	 * @return
+	 */
+	@GetMapping("/")
+	public String showMovies(Model model) {
 
-    /**
-     * Add a new movie
-     * @param model
-     * @param map
-     * @return
-     */
-    @PostMapping("/addMovie")
-    public RedirectView addMovie(Model model, @RequestParam Map<String, String> map) {
+		model.addAttribute("movies", movieManager.getAllMovies());
+		model.addAttribute("movies_count", movieManager.getMoviesCount());
+		model.addAttribute("movies_watched", movieManager.getMoviesCountWatched());
+		return "all-movies";
+	}
 
-        Movie m = new Movie();
-        m.setName(map.get("name"));
-        m.setWatched(false);
+	/**
+	 * Add a new movie
+	 *
+	 * @param model
+	 * @param map
+	 * @return
+	 */
+	@PostMapping("/addMovie")
+	public RedirectView addMovie(Model model, @RequestParam Map<String, String> map) {
 
-        movieRepository.save(m);
+		movieManager.addMovie(map.get("name"));
 
-        return new RedirectView("/");
-    }
+		return new RedirectView("/");
+	}
 
-    /**
-     * Switches movie to watched or unwatched
-     * @param model
-     * @param id
-     * @return
-     */
-    @GetMapping("/switch/{id}")
-    public RedirectView watched(Model model, @PathVariable int id) {
+	/**
+	 * Switches movie to watched or unwatched
+	 *
+	 * @param model
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("/switch/{id}")
+	public RedirectView watched(Model model, @PathVariable int id) {
 
-        Movie m = movieRepository.findOne(id);
-        m.setWatched(!m.isWatched());
-        movieRepository.save(m);
+		movieManager.setMovieWatched(id);
 
-        return new RedirectView("/");
-    }
+		return new RedirectView("/");
+	}
 
-    /**
-     * Delete movie
-     * @param model
-     * @param id
-     * @return
-     */
-    @GetMapping("/delete/{id}")
-    public RedirectView delete(Model model, @PathVariable int id) {
+	/**
+	 * Delete movie
+	 *
+	 * @param model
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("/delete/{id}")
+	public RedirectView delete(Model model, @PathVariable int id) {
 
-        movieRepository.delete(id);
+		movieManager.deleteMovie(id);
 
-        return new RedirectView("/");
-    }
+		return new RedirectView("/");
+	}
 
 }
