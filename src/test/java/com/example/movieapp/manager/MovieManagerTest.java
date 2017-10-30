@@ -92,11 +92,17 @@ public class MovieManagerTest {
 
         movieManager.setMovieWatched(42);
 
+
         assertTrue(movies.get(0).isWatched());
     }
 
     @Test
     public void deleteMovie() throws Exception {
+
+        doAnswer(invocationOnMock -> {
+            // mijn logica bij een void
+            return null;
+        }).when(movieRepository).delete(1337);
 
         movieManager.deleteMovie(1337);
     }
