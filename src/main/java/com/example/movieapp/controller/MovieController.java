@@ -25,7 +25,6 @@ public class MovieController {
 	 */
 	final MovieManager movieManager;
 
-	@Autowired
 	public MovieController(MovieManager movieManager) {
 		this.movieManager = movieManager;
 	}

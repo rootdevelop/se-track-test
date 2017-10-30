@@ -4,7 +4,6 @@ import com.example.movieapp.model.Movie;
 import com.example.movieapp.repository.MovieRepository;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.ArrayList;
@@ -96,10 +95,8 @@ public class MovieManagerTest {
         assertTrue(movies.get(0).isWatched());
     }
 
-    @Test(expected = EmptyResultDataAccessException.class)
+    @Test
     public void deleteMovie() throws Exception {
-
-        doThrow(new EmptyResultDataAccessException(0)).when(movieRepository).delete(1337);
 
         movieManager.deleteMovie(1337);
     }

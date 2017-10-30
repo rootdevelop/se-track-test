@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class MovieManager {
 
-    @Autowired
     private final MovieRepository movieRepository;
 
     public MovieManager(MovieRepository movieRepository) {
@@ -44,6 +43,7 @@ public class MovieManager {
     }
 
     public void deleteMovie(int id) {
+
         movieRepository.delete(id);
     }
 }
